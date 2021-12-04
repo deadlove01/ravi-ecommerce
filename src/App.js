@@ -9,7 +9,7 @@ import SneakersPage from "./pages/sneakers.page";
 import ShopPage from "./pages/shope.page";
 import Header from "./components/header.component";
 import SigninSignupPage from "./pages/signin-signup.page";
-import {auth} from "./firebase/firebase.utils"
+import {auth, createUserProfileDocument} from "./firebase/firebase.utils"
 import {useEffect, useState} from "react";
 
 
@@ -17,9 +17,23 @@ const  App = () => {
 
     const [currentUser, setCurrentUser] = useState(null);
 
-    const onAuthChanged = user => {
+    const onAuthChanged = async user => {
+        // console.log(user)
+        if(user)
+        {
+            const userRef = await createUserProfileDocument(user)
+            userRef.onSnapshot(snapshot => {
+                setCurrentUser({
+                    id: snapshot.id,
+                    ...snapshot.data()
+                })
+                console.log("snap: ",snapshot.data())
+                console.log(currentUser)
+            })
+
+
+        }
         setCurrentUser(user);
-        console.log(user)
     }
 
     useEffect(() => {
