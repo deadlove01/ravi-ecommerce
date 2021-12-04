@@ -1,9 +1,6 @@
 import './App.css';
 import HomePage from "./components/homepage.component";
-import {
-    Routes,
-    Route
-} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import HatsPage from "./pages/hats.page";
 import JacketsPage from "./pages/jackets.page";
 import MensPage from "./pages/mens.page";
@@ -12,11 +9,28 @@ import SneakersPage from "./pages/sneakers.page";
 import ShopPage from "./pages/shope.page";
 import Header from "./components/header.component";
 import SigninSignupPage from "./pages/signin-signup.page";
+import {auth} from "./firebase/firebase.utils"
+import {useEffect, useState} from "react";
 
-function App() {
+
+const  App = () => {
+
+    const [currentUser, setCurrentUser] = useState(null);
+
+    const onAuthChanged = user => {
+        setCurrentUser(user);
+        console.log(user)
+    }
+
+    useEffect(() => {
+        console.log("use effect")
+        return auth.onAuthStateChanged(onAuthChanged);
+    }, []);
+
+
     return (
      <div>
-         <Header />
+         <Header currentUser={currentUser} />
          <Routes>
 
              <Route exact path={"/"} element={<HomePage/>}/>
