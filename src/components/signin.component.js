@@ -3,7 +3,7 @@ import FormInput from "./form-input.component";
 
 import '../css/signin.styles.scss'
 import CustomButton from "./custom-buttons/custom-button";
-import {signInWithGoogle} from "../firebase/firebase.utils";
+import {signInWithGoogle, auth} from "../firebase/firebase.utils";
 
 const SignIn = () => {
     const formInitialState = {
@@ -13,10 +13,16 @@ const SignIn = () => {
     const [formValue, setFormValue] = useState(formInitialState);
 
 
-    const handleSubmit = (e) =>{
+    const handleSubmit = async (e) =>{
         e.preventDefault();
 
-        setFormValue(formInitialState);
+        const {email, password} = formValue;
+        try{
+            await auth.signInWithEmailAndPassword(email, password);
+            setFormValue(formInitialState);
+        }catch(error){
+            console.log("error signing in: ", error.message)
+        }
     }
 
     const handleInputChange = (e) =>{

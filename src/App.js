@@ -28,7 +28,7 @@ const  App = () => {
                     ...snapshot.data()
                 })
                 console.log("snap: ",snapshot.data())
-                console.log(currentUser)
+
             })
 
 
@@ -40,6 +40,11 @@ const  App = () => {
         console.log("use effect")
         return auth.onAuthStateChanged(onAuthChanged);
     }, []);
+
+    useEffect(() => {
+        console.log(currentUser)
+    }, [currentUser]);
+
 
 
     return (
