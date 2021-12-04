@@ -11,6 +11,7 @@ import WomensPage from "./pages/womens.page";
 import SneakersPage from "./pages/sneakers.page";
 import ShopPage from "./pages/shope.page";
 import Header from "./components/header.component";
+import SigninSignupPage from "./pages/signin-signup.page";
 
 function App() {
     return (
@@ -20,11 +21,13 @@ function App() {
 
              <Route exact path={"/"} element={<HomePage/>}/>
              <Route exace path={"/shop"} element={<ShopPage/>}/>
+             <Route path={"/signin"} element={<SigninSignupPage />} />
              <Route path={"/shop/hats"} element={<HatsPage/>}/>
              <Route path={"/shop/jackets"} element={<JacketsPage/>}/>
              <Route path={"/shop/mens"} element={<MensPage/>}/>
              <Route path={"/shop/womens"} element={<WomensPage/>}/>
              <Route path={"/shop/sneakers"} element={<SneakersPage/>}/>
+
          </Routes>
 
      </div>
