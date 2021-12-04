@@ -1,6 +1,6 @@
 import './App.css';
 import HomePage from "./components/homepage.component";
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import HatsPage from "./pages/hats.page";
 import JacketsPage from "./pages/jackets.page";
 import MensPage from "./pages/mens.page";
@@ -12,10 +12,13 @@ import SigninSignupPage from "./pages/signin-signup.page";
 import {auth, createUserProfileDocument} from "./firebase/firebase.utils"
 import {useEffect, useState} from "react";
 
+import {connect} from "react-redux";
+import setCurrentUser from "./redux/user/user.action";
 
-const  App = () => {
 
-    const [currentUser, setCurrentUser] = useState(null);
+const  App = (props) => {
+
+    const {updateCurrentUser} = props;
 
     const onAuthChanged = async user => {
         // console.log(user)
@@ -23,7 +26,7 @@ const  App = () => {
         {
             const userRef = await createUserProfileDocument(user)
             userRef.onSnapshot(snapshot => {
-                setCurrentUser({
+                updateCurrentUser({
                     id: snapshot.id,
                     ...snapshot.data()
                 })
@@ -33,7 +36,7 @@ const  App = () => {
 
 
         }
-        setCurrentUser(user);
+        updateCurrentUser(user);
     }
 
     useEffect(() => {
@@ -41,20 +44,15 @@ const  App = () => {
         return auth.onAuthStateChanged(onAuthChanged);
     }, []);
 
-    useEffect(() => {
-        console.log(currentUser)
-    }, [currentUser]);
-
-
 
     return (
      <div>
-         <Header currentUser={currentUser} />
+         <Header />
          <Routes>
 
              <Route exact path={"/"} element={<HomePage/>}/>
              <Route exace path={"/shop"} element={<ShopPage/>}/>
-             <Route path={"/signin"} element={<SigninSignupPage />} />
+             <Route path={"/signin"} element={props.currentUser ? (<Navigate to={"/"} />) : <SigninSignupPage /> } />
              <Route path={"/shop/hats"} element={<HatsPage/>}/>
              <Route path={"/shop/jackets"} element={<JacketsPage/>}/>
              <Route path={"/shop/mens"} element={<MensPage/>}/>
@@ -68,4 +66,12 @@ const  App = () => {
     );
 }
 
-export default App;
+const mapStateToProps = state =>({
+    currentUser: state.user.currentUser
+})
+
+const mapDispatchToProps = dispatch => ({
+    updateCurrentUser: user => dispatch(setCurrentUser(user))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps) (App);
