@@ -10,19 +10,26 @@ import MensPage from "./pages/mens.page";
 import WomensPage from "./pages/womens.page";
 import SneakersPage from "./pages/sneakers.page";
 import ShopPage from "./pages/shope.page";
+import Header from "./components/header.component";
 
 function App() {
-  return (
-      <Routes>
-          <Route exact path={"/"} element={<HomePage />} />
-          <Route exace path={"/shop"} element={<ShopPage />}/>
-          <Route path={"/shop/hats"} element={<HatsPage />} />
-          <Route path={"/shop/jackets"} element={<JacketsPage />} />
-          <Route path={"/shop/mens"} element={<MensPage />} />
-          <Route path={"/shop/womens"} element={<WomensPage />} />
-          <Route path={"/shop/sneakers"} element={<SneakersPage />} />
-      </Routes>
-  );
+    return (
+     <div>
+         <Header />
+         <Routes>
+
+             <Route exact path={"/"} element={<HomePage/>}/>
+             <Route exace path={"/shop"} element={<ShopPage/>}/>
+             <Route path={"/shop/hats"} element={<HatsPage/>}/>
+             <Route path={"/shop/jackets"} element={<JacketsPage/>}/>
+             <Route path={"/shop/mens"} element={<MensPage/>}/>
+             <Route path={"/shop/womens"} element={<WomensPage/>}/>
+             <Route path={"/shop/sneakers"} element={<SneakersPage/>}/>
+         </Routes>
+
+     </div>
+
+    );
 }
 
 export default App;
