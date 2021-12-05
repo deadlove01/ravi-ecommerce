@@ -21,7 +21,6 @@ const  App = (props) => {
     const {updateCurrentUser} = props;
 
     const onAuthChanged = async user => {
-        // console.log(user)
         if(user)
         {
             const userRef = await createUserProfileDocument(user)
@@ -39,7 +38,6 @@ const  App = (props) => {
     }
 
     useEffect(() => {
-        console.log("use effect")
         return auth.onAuthStateChanged(onAuthChanged);
     }, []);
 
