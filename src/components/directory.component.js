@@ -5,10 +5,7 @@ import MenuItem from "./menu-item.component";
 import {connect} from "react-redux";
 import {createStructuredSelector} from "reselect";
 import {selectDirectorySections} from "../redux/directory/directory.selector";
-import {Route, useParams} from "react-router-dom";
-import ShopPage from "../pages/shope.page";
-import CollectionOverview from "./shop/collection-overview.component";
-import CollectionPage from "../pages/collection.page";
+import {useParams} from "react-router-dom";
 
 
 const Directory = ({sections}) => {

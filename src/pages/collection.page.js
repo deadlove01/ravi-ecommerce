@@ -9,7 +9,7 @@ import {createStructuredSelector} from "reselect";
 
 const CollectionPage = ({ collection }) => {
 
-    const { collectionId} = useParams();
+    const {collectionId} = useParams();
     const [data, setData] = useState(undefined);
 
     useEffect(() => {
