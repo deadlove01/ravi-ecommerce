@@ -35,9 +35,6 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         }catch(error){
             console.log("error creating user: "+error.message)
         }
-    }else
-    {
-        console.log("user existed")
     }
     return userRef;
 }

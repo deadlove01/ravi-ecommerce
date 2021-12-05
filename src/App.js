@@ -10,13 +10,15 @@ import ShopPage from "./pages/shope.page";
 import Header from "./components/header.component";
 import SigninSignupPage from "./pages/signin-signup.page";
 import {auth, createUserProfileDocument} from "./firebase/firebase.utils"
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 
 import {connect} from "react-redux";
 import setCurrentUser from "./redux/user/user.action";
 import {createStructuredSelector} from "reselect";
 import {selectCurrentUser} from "./redux/user/user.selector";
 import CheckoutPage from "./pages/checkout.page";
+import CollectionPage from "./pages/collection.page";
+import CollectionOverview from "./components/shop/collection-overview.component";
 
 
 const  App = (props) => {
@@ -33,7 +35,6 @@ const  App = (props) => {
                     id: snapshot.id,
                     ...snapshot.data()
                 })
-                console.log("snap: ",snapshot.data())
 
             })
 
@@ -54,13 +55,16 @@ const  App = (props) => {
          <Routes>
 
              <Route exact path={"/"} element={<HomePage/>}/>
-             <Route exact path={"/shop"} element={<ShopPage/>}/>
+             <Route path={"/shop"} element={<ShopPage/>} >
+                 <Route path={""} element={<CollectionOverview />} />
+                 <Route path={`:collectionId`} element={<CollectionPage />} />
+             </Route>
              <Route path={"/signin"} element={props.currentUser ? (<Navigate to={"/"} />) : <SigninSignupPage /> } />
-             <Route path={"/shop/hats"} element={<HatsPage/>}/>
-             <Route path={"/shop/jackets"} element={<JacketsPage/>}/>
-             <Route path={"/shop/mens"} element={<MensPage/>}/>
-             <Route path={"/shop/womens"} element={<WomensPage/>}/>
-             <Route path={"/shop/sneakers"} element={<SneakersPage/>}/>
+             {/*<Route path={"/shop/hats"} element={<HatsPage/>}/>*/}
+             {/*<Route path={"/shop/jackets"} element={<JacketsPage/>}/>*/}
+             {/*<Route path={"/shop/mens"} element={<MensPage/>}/>*/}
+             {/*<Route path={"/shop/womens"} element={<WomensPage/>}/>*/}
+             {/*<Route path={"/shop/sneakers"} element={<SneakersPage/>}/>*/}
              <Route exact path={"/shop/checkout"} element={<CheckoutPage />} />
 
          </Routes>
