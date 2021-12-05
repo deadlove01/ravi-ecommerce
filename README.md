@@ -68,3 +68,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### Command to deploy to heroku
+***Need to move to current project folder
+
+`heroku create "ravi-ecommerce-live" --buildpack https://github.com/mars/create-react-app-buildpack.git`
+
+`git push heroku master`
+
+url: `https://ravi-ecommerce-live.herokuapp.com/`
